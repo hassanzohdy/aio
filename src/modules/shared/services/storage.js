@@ -1,0 +1,3 @@
+/*
+    Here will implement all localStorage methods
+*/
