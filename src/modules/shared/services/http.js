@@ -1,51 +1,49 @@
+import React from 'react';
 import axios from 'axios';
 
-// Global variable
-const endPoint = 'EndPointHere';
+class Http extends React.component {
+  // Global variable
+  endPoint = 'EndPointHere';
+  app_token = 'AppTokenHere';
 
-// Default configuration --------------------------------
-axios.defaults.baseURL = endPoint; // EndPoint
-axios.defaults.headers.common['X-APP-Token'] = 'Token Here'; // App Token
-// -------------------------------------------------------
+  request_config() {
+    // Default configuration --------------------------------
+    axios.defaults.baseURL = this.endPoint; // EndPoint
+    axios.defaults.headers.common['X-APP-Token'] = this.app_token; // App Token
+    // -------------------------------------------------------
+  }
 
-// Global requests methods -------------------------------
+  request_config()
 
-function list(api) {
-  // list all data
-  return axios.get(`${endPoint}/${api}`);
+  list(api) {
+    // list all data
+    return axios.get(`${this.endPoint}/${api}`);
+  }
+
+  get(api, id) {
+    // get single data
+    return axios.get(`${this.endPoint}/${api}/${id}`);
+  }
+
+  post(api, data) {
+    // create new data
+    return axios.post(`${this.endPoint}/${api}`, data);
+  }
+
+  put(api, id, data) {
+    // update single data
+    return axios.put(`${this.endPoint}/${api}/${id}`, data);
+  }
+
+  destroy(api, id) {
+    // delete single data
+    return axios.delete(`${this.endPoint}/${api}/${id}`);
+  }
+
+  destroy_all(api, ids) {
+    // delete multiple data
+    return axios.delete(`${this.endPoint}/${api}?ids=${ids}`);
+  }
 }
 
-function get(api, id) {
-  // get single data
-  return axios.get(`${endPoint}/${api}/${id}`);
-}
-
-function post(api, data) {
-  // create new data
-  return axios.post(`${endPoint}/${api}`, data);
-}
-
-function put(api, id, data) {
-  // update single data
-  return axios.put(`${endPoint}/${api}/${id}`, data);
-}
-
-function destroy(api, id) {
-  // delete single data
-  return axios.delete(`${endPoint}/${api}/${id}`);
-}
-
-function destroy_all(api, ids) {
-  // delete multiple data
-  return axios.delete(`${endPoint}/${api}?ids=${ids}`);
-}
-// -------------------------------------------------------
-
-export default {
-  get,
-  post,
-  list,
-  put,
-  destroy,
-  destroy_all
-};
+export default Http;
