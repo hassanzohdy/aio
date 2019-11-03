@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Form, FormGroup } from "reactstrap";
-import { FacebookLoginButton } from "react-social-login-buttons";
 import { input } from 'reactjs-input-validator';
 
 class Login extends Component {
@@ -30,7 +29,7 @@ class Login extends Component {
                 <div className="text-center pt-3">
                     Or continue with your social account
         </div>
-                <FacebookLoginButton className="mt-3 mp-3" />
+                
 
                 <div className="options text-center">
                     <a href="#">SignUp</a>
