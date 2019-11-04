@@ -96,10 +96,10 @@ class Login extends Component {
                     
                 />
             );
-            
+
         return (
             /**** LOGIN FORM ****/
-            <form onSubmit={this.loginHandler} className={classes.login}>
+            <form className={classes.login}>
                 {formElements}
                 <button type="submit" disabled={!this.state.formIsValid} className={[classes.btn, 'btn'].join(' ')}>Submit</button>
             </form>
