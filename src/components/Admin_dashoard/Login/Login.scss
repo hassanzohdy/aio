@@ -1,0 +1,17 @@
+$mainColor : #10dada;
+
+.login {
+    width: 450px;
+    margin: 150px auto;
+}
+
+.btn {
+    display: block;
+    width: 100%;
+    background: $mainColor;
+    color: #fff;
+}
+
+.btn:hover {
+    color: #fff;
+}
