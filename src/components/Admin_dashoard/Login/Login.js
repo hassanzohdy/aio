@@ -1,110 +1,75 @@
-/**** ADMINDASHOARD LOGIN COMPONENT ****/
-import React , { Component } from 'react';
-import Input from '../../Form_Controls/Input/Input';
-import classes from './Login.scss';
+import React from 'react';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import Classes from './Login.scss';
 
-class Login extends Component {
-    state = {
-      loginForm: {
-        email: {
-          label: 'Email',
-          elementType: 'input',
-          elementConfig: {
-            type: 'email',
-            placeholder: 'Email'
-          },
-          value: '',
-          validation: {
-          required: true
-          },
-          valid : false,
-          touched : false,
-          errorMessage : 'Requried'
-        },
-        password: {
-          label: 'Password',
-          elementType: 'input',
-          elementConfig: {
-            type: 'password',
-            placeholder: 'Password'
-          },
-          value: '',
-          validation: {
-            required: true,
-            minlength: 8
-          },
-          valid: false,
-          touched: false,
-          errorMessage: 'Password length must be at least 8 characters.'
+const login = () =>
+    <Formik
+      // ASSIGN INITAL VALUES TO LOGIN FORM CONTROLS
+      initialValues={{ email: '', password: '' }}
+
+      // VALIDATE LOGIN FORM CONTROLS VALUES
+      validate={values => {
+        const errors = {};
+        if (!values.email) {
+          errors.email = 'Required';
+
+        } else if (
+          !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
+        ) {
+          errors.email = 'Invalid email address';
         }
-      },
-      formIsValid: false
-    }
-
-    /**** CHECK VALIDATION OF FORM ELEMENTS VALUES  ****/
-    checkValidity(value, rules) {
-        let isValid = true;
-
-        if(rules.required) {
-            isValid = value.trim() !== '' && isValid;
+        if (!values.password) {
+          errors.password = 'Required';
         }
-        if(rules.minlength) {
-            isValid = value.length >= rules.minlength && isValid;
-        }
-        return isValid;
-    }
+        return errors;
+      }}
 
-    /**** INPUT CHANGE HANDLER ****/
-    inputChangedHandler = (event, elementId) => {
-        const updatedLoginForm = {...this.state.loginForm};
-        const updatedLoginElement = {...updatedLoginForm[elementId]};
-        updatedLoginElement.value = event.target.value;
-        updatedLoginElement.valid = this.checkValidity(updatedLoginElement.value, updatedLoginElement.validation);
-        updatedLoginElement.touched = true;
-        updatedLoginForm[elementId] = updatedLoginElement;
-        
-        let formIsValid = true;
-        for(let key in updatedLoginForm) {
-          formIsValid = updatedLoginForm[key].valid && formIsValid;
-        }
+      // ONSUBMIT
+      onSubmit={(values, { setSubmitting }) => {
+        setTimeout(() => {
+          alert(JSON.stringify(values, null, 2));
+          setSubmitting(false);
+        }, 400);
+      }}
+    >
+      {({ isSubmitting }) => {
 
-        this.setState({loginForm : updatedLoginForm, formIsValid : formIsValid});
-    }
-
-    render () {
-        /**** PUSHING STATE LONGINFORM OBJECT PROPERTIES INTO ARRAY ****/
-        let formElementsArr = [];
-        for(let key in this.state.loginForm) {
-            formElementsArr.push({
-                id: key,
-                config: this.state.loginForm[key]
-            });
-        }
-
-        /**** Maping `formElementsArr` INTO LIST OF JSX CODE REPRESENT THIS FORM ELEMENTS ****/
-        let formElements = formElementsArr.map(element => 
-                <Input 
-                    key = {element.id}
-                    title = {element.config.label}
-                    elementtype = {element.config.elementType}
-                    elementconfig = {element.config.elementConfig}
-                    value = {element.config.value}
-                    change = {(event) => this.inputChangedHandler(event, element.id) }
-                    valid = {element.config.valid}
-                    touched = {element.config.touched}
-                    errorMessage = {element.config.errorMessage}
-                    
-                />
-            );
+        let fieldClasses = [ Classes.form_control, 'form-control' ];
+        let btnClasses = [ Classes.btn, 'btn' ];
 
         return (
-            /**** LOGIN FORM ****/
-            <form className={classes.login}>
-                {formElements}
-                <button type="submit" disabled={!this.state.formIsValid} className={[classes.btn, 'btn'].join(' ')}>Submit</button>
-            </form>
-        );
-    }
-}
+          <Form className={Classes.login}>
+            <div className="form-group position-relative">
+              {/* EMAIL INPUT CONTROL */}
+              <Field 
+                className={fieldClasses.join(' ')} 
+                type="email" 
+                name="email"
+                placeholder="Your Email"
+              />
+              {/* EMAIL ERROR MESSAGE */}
+              <ErrorMessage className={Classes.error}  name="email" component="div" />
+            </div>
 
-export default Login;
+            <div className="form-group position-relative">
+              {/* PASSWORD INPUT CONTROL */}
+              <Field 
+                className={fieldClasses.join(' ')} 
+                type="password"
+                name="password"
+                placeholder="Your Password"
+                minLength="8"
+                />
+              {/* PASSWORD ERROR MESSAGE */}
+              <ErrorMessage className={Classes.error} name="password" component="div" />
+            </div>
+
+            {/* SUBMIT BUTTIN */}
+            <button className={btnClasses.join(' ')} type="submit" disabled={isSubmitting}>Submit</button>
+          </Form>
+        );
+      }}
+    </Formik>
+;
+
+export default login;
