@@ -1,75 +1,58 @@
 import React from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Field, Form, ErrorMessage  } from 'formik';
+import * as Yup from 'yup';
 import Classes from './Login.scss';
 
-const login = () =>
-    <Formik
-      // ASSIGN INITAL VALUES TO LOGIN FORM CONTROLS
-      initialValues={{ email: '', password: '' }}
+const loginForm = () => {
+  let fieldClasses = [ Classes.form_control, 'form-control' ];
+  let btnClasses = [ Classes.btn, 'btn' ];
 
-      // VALIDATE LOGIN FORM CONTROLS VALUES
-      validate={values => {
-        const errors = {};
-        if (!values.email) {
-          errors.email = 'Required';
+  return <Formik
+    // ASSIGN INITAIL VALUES TO LOGIN FORM CONTROLS
+    initialValues = {{email: '',password: ''}}
+    
+    // VALIDATE LOGIN FORM CONTROLS VALUES  
+    validationSchema ={ Yup.object({
+        email: Yup.string()
+            .email('Invalid email address')
+            .required('required'),
+        password: Yup.string()
+            .min(8, 'Password Must be 8 characters or more')
+            .required('required')
+    })}
 
-        } else if (
-          !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-        ) {
-          errors.email = 'Invalid email address';
-        }
-        if (!values.password) {
-          errors.password = 'Required';
-        }
-        return errors;
-      }}
+    onSubmit= {values => { alert('Sucessful Login');} }
+  >
+    <Form className={Classes.login}>
+      
+      <div className="form-group position-relative">
+        {/* EMAIL INPUT CONTROL */}
+        <Field 
+          className={fieldClasses.join(' ')} 
+          type="email"
+          name="email"
+          placeholder="Enter your email"
+        />
+        {/* EMAIL ERROR MESSAGE */}
+        <ErrorMessage className={Classes.error} name="email" component="div"/>
+      </div>
+      
+      <div className="form-group position-relative">
+        {/* PASSWORD INPUT CONTROL */}
+        <Field
+          className={fieldClasses.join(' ')} 
+          type="password"
+          name="password"
+          placeholder="Enter your password"
+        />
+        {/* PASSWORD ERROR MESSAGE */}
+        <ErrorMessage className={Classes.error} name="password" component="div" />
+      </div>
 
-      // ONSUBMIT
-      onSubmit={(values, { setSubmitting }) => {
-        setTimeout(() => {
-          alert(JSON.stringify(values, null, 2));
-          setSubmitting(false);
-        }, 400);
-      }}
-    >
-      {({ isSubmitting }) => {
-
-        let fieldClasses = [ Classes.form_control, 'form-control' ];
-        let btnClasses = [ Classes.btn, 'btn' ];
-
-        return (
-          <Form className={Classes.login}>
-            <div className="form-group position-relative">
-              {/* EMAIL INPUT CONTROL */}
-              <Field 
-                className={fieldClasses.join(' ')} 
-                type="email" 
-                name="email"
-                placeholder="Your Email"
-              />
-              {/* EMAIL ERROR MESSAGE */}
-              <ErrorMessage className={Classes.error}  name="email" component="div" />
-            </div>
-
-            <div className="form-group position-relative">
-              {/* PASSWORD INPUT CONTROL */}
-              <Field 
-                className={fieldClasses.join(' ')} 
-                type="password"
-                name="password"
-                placeholder="Your Password"
-                minLength="8"
-                />
-              {/* PASSWORD ERROR MESSAGE */}
-              <ErrorMessage className={Classes.error} name="password" component="div" />
-            </div>
-
-            {/* SUBMIT BUTTIN */}
-            <button className={btnClasses.join(' ')} type="submit" disabled={isSubmitting}>Submit</button>
-          </Form>
-        );
-      }}
-    </Formik>
-;
-
-export default login;
+      {/* SUBMIT BUTTIN */}
+      <button type="submit" className={btnClasses.join(' ')} >Submit</button>
+    </Form>
+  </Formik>
+}
+  
+export default loginForm;
