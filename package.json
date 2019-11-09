@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "@babel/core": "7.6.0",
+    "@emotion/core": "^10.0.22",
+    "@emotion/styled": "^10.0.23",
     "@svgr/webpack": "4.3.2",
     "@typescript-eslint/eslint-plugin": "^2.2.0",
     "@typescript-eslint/parser": "^2.2.0",
@@ -136,5 +138,8 @@
     "presets": [
       "react-app"
     ]
+  },
+  "devDependencies": {
+    "@types/yup": "^0.26.24"
   }
 }

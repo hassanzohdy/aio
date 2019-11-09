@@ -1,11 +1,29 @@
 import React from 'react';
-import { Formik, Field, Form, ErrorMessage  } from 'formik';
+import { Formik, Form, useField  } from 'formik';
 import * as Yup from 'yup';
 import Classes from './Login.scss';
 
+let fieldClasses = [ Classes.form_control, 'form-control' ];
+let btnClasses = [ Classes.btn, 'btn' ];
+
+const MyTextInput = ({ label, ...props }) => {
+  const [field, meta] = useField(props);
+  let inptLabel = null;
+  if(label) {
+    inptLabel = <label htmlFor={props.id || props.name} className={Classes.label}>{label} : </label>
+  }
+  return (
+    <>
+      {inptLabel}
+      <input {...field} {...props} />
+      {meta.touched && meta.error ? (
+        <div className={Classes.error}>{meta.error}</div>
+      ) : null}
+    </>
+  );
+};
+
 const loginForm = () => {
-  let fieldClasses = [ Classes.form_control, 'form-control' ];
-  let btnClasses = [ Classes.btn, 'btn' ];
 
   return <Formik
     // ASSIGN INITAIL VALUES TO LOGIN FORM CONTROLS
@@ -25,28 +43,23 @@ const loginForm = () => {
   >
     <Form className={Classes.login}>
       
-      <div className="form-group position-relative">
-        {/* EMAIL INPUT CONTROL */}
-        <Field 
+      <div className='form-group position-relative'>
+        {/* EMAIL */}
+        <MyTextInput
           className={fieldClasses.join(' ')} 
           type="email"
           name="email"
-          placeholder="Enter your email"
+          placeholder="Email"
         />
-        {/* EMAIL ERROR MESSAGE */}
-        <ErrorMessage className={Classes.error} name="email" component="div"/>
       </div>
-      
-      <div className="form-group position-relative">
-        {/* PASSWORD INPUT CONTROL */}
-        <Field
+      {/* PASSWORD */}
+      <div className='form-group position-relative'>
+        <MyTextInput
           className={fieldClasses.join(' ')} 
           type="password"
           name="password"
-          placeholder="Enter your password"
-        />
-        {/* PASSWORD ERROR MESSAGE */}
-        <ErrorMessage className={Classes.error} name="password" component="div" />
+          placeholder="Password"
+        /> 
       </div>
 
       {/* SUBMIT BUTTIN */}
