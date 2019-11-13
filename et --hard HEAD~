@@ -1,0 +1,64 @@
+[33mcommit 294f38b39181ecaa412b982d0a5e42f6d51a78bf[m[33m ([m[1;36mHEAD -> [m[1;32mreactjs2[m[33m, [m[1;31morigin/reactjs2[m[33m)[m
+Author: Mohamed Eltahawy <mohamed.abdelrahman.eltahawy@gmail.com>
+Date:   Wed Nov 13 20:06:55 2019 +0200
+
+    Added Register page
+
+[33mcommit 6fdd9031c7def484c9d0c9336df8ba77619de2a5[m[33m ([m[1;31morigin/reactjs[m[33m, [m[1;32mreactjs[m[33m)[m
+Author: Mohamed Eltahawy <mohamed.abdelrahman.eltahawy@gmail.com>
+Date:   Sun Nov 3 23:35:49 2019 +0200
+
+    Admin Dashboard Login Page
+
+[33mcommit e57d89f53151662f9758563f3d544343ce854181[m
+Author: Mohamed Eltahawy <mohamed.abdelrahman.eltahawy@gmail.com>
+Date:   Sun Nov 3 23:03:54 2019 +0200
+
+    Admin Dashboard Login Page
+
+[33mcommit 5a2127b6e1ccb618c3f53343274eebf41c5b5204[m[33m ([m[1;31mhz/reactjs[m[33m)[m
+Merge: fa9a6f7 4edf1b5
+Author: Hasan Zohdy <hassanzohdy@gmail.com>
+Date:   Tue Oct 29 12:15:32 2019 +0200
+
+    Merge pull request #2 from MasterMorsy/master
+    
+    init app with sass
+
+[33mcommit 4edf1b54e02fec23604b1568607d10c58b9caba9[m
+Merge: d171418 fa9a6f7
+Author: Mohamed Morsy <soon.userexperience@gmail.com>
+Date:   Tue Oct 29 11:51:01 2019 +0200
+
+    Merge branch 'reactjs' into master
+
+[33mcommit d171418cce64b47462c48b3a7e194280d6ac142c[m
+Merge: 229bf0c 43d14bb
+Author: MasterMorsy <soon.userexperience@gmail.com>
+Date:   Tue Oct 29 11:35:15 2019 +0200
+
+    init app with sass
+
+[33mcommit 229bf0c0ef46095d9013b61b41fed37adf32b53b[m
+Author: MasterMorsy <soon.userexperience@gmail.com>
+Date:   Tue Oct 29 11:27:31 2019 +0200
+
+    init project with sass
+
+[33mcommit fa9a6f7c3f17c7d36dfda6387c1f080e0468b06c[m
+Author: Hasan Zohdy <hassanzohdy@gmail.com>
+Date:   Mon Oct 28 19:38:09 2019 +0200
+
+    Update README.md
+
+[33mcommit 5e89436994df0ed3ef989fd85b1018aeb0cc588e[m
+Author: Hasan Zohdy <hassanzohdy@gmail.com>
+Date:   Mon Oct 28 19:37:59 2019 +0200
+
+    Update README.md
+
+[33mcommit 43d14bbfb743823033287b3db760cb589e942563[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmaster[m[33m)[m
+Author: Hasan Zohdy <hassanzohdy@gmail.com>
+Date:   Mon Oct 28 19:36:36 2019 +0200
+
+    Create README.md
