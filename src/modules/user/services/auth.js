@@ -1,10 +1,7 @@
 /*
 Here will implement all shared authentication methods
 */
-
-import React from 'react';
-
-class Auth extends React.component {
+class Auth  {
   // Global variables
   user_token = 'userTokenHere';
 
