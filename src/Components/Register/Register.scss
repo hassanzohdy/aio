@@ -9,17 +9,6 @@ h2 {
 .reg-option {
     padding-top: 10px;
 }
-.pass-not-Matched {
-    background: #dc3545 !important;
-    transition: all .3s ease-in-out !important
-}
-
-.pass-Matched {
-    background: #28a745 !important;
-    transition: all .3s ease-in-out !important;
-    border-color: #28a745 !important;
-    color: #000 !important;
-}
 
 .center {
     padding-top: 5px;
@@ -40,5 +29,23 @@ input[type="date"] {
     border: 1px solid #ced4da;
     border-radius: .25rem;
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out
-
 }
+
+.meassge-failed {
+    padding: 0% !important;
+}
+
+.alert {
+    position: relative !important;
+    padding: 6px !important;
+    margin-bottom:0 !important; 
+    border: 1px solid
+    transparent;
+        border-top-color: transparent !important;
+        border-right-color: transparent !important;
+        border-bottom-color: transparent !important;
+        border-left-color: transparent !important;
+    border-radius: 0.25rem !important;
+    margin-left: 15px !important; 
+}
+

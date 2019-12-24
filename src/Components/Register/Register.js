@@ -1,242 +1,311 @@
 import React, { Component } from "react";
 import { Form, FormGroup } from "reactstrap";
-import { FaUserAlt, FaLock, FaMailBulk, FaFingerprint } from "react-icons/fa";
+import { FaUserAlt, FaLock, FaMailBulk } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import "./Register.css";
+import "./Register.scss";
+
+// Email address regular exeprision... 
+const emailRegax = RegExp(/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/);
+
+const formValid = ({ formErrors, ...rest }) => {
+  let valid = true;
+
+  Object.values(formErrors).forEach(val => {
+    val.length > 0 && (valid = false);
+  });
+
+  Object.values(rest).forEach(val => {
+    val === null && (valid = false);
+  });
+
+  return valid;
+};
 
 class Register extends Component {
-  state = {
-    password: "",
-    confirmPassword: "",
-    not_Match: null
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      firstName: null,
+      lastName: null,
+      email: null,
+      password: null,
+      conf_password: null,
+      gender: null,
+      chooseOne: '',
+      formErrors: {
+        firstName: "",
+        lastName: "",
+        email: "",
+        password: "",
+        conf_password: "",
+        gender: ""
+      }
+    };
+  }
 
-  updatePassword = e => {
+  radioChange = (e) =>{
     this.setState({
-      password: e.target.value
-    });
-  };
+        gender: e.target.value
+    })
+  }
 
-  updateConfirmPassword = e => {
-    this.setState({
-      confirmPassword: e.target.value
-    });
-  };
-
-  checkMatch = e => {
+  handelSubmit = e => {
     e.preventDefault();
-    const { password, confirmPassword } = this.state;
-
-    if (password !== confirmPassword) {
-      this.setState({ not_Match: true });
+    if (formValid(this.state)) {
+      alert("Submit is Done !");
     } else {
-      this.setState({ not_Match: false });
+      console.error("Submit Error !");
     }
   };
 
-  handleSubmit = e => {
+  handelChange = e => {
     e.preventDefault();
-    const { password, confirmPassword } = this.state;
+    const { name, value } = e.target;
+    let { formErrors } = this.state;
 
-    if (password !== confirmPassword) {
-      alert("password Dosn't match");
-    } else {
-      alert(" Success !");
+    switch (name) {
+      // First Name
+      case "firstName":
+        formErrors.firstName =
+          value.length < 3 && value.length > 0
+            ? "Minimum 3 charechters is required"
+            : "";
+        break;
+
+      // Last Name
+      case "lastName":
+        formErrors.lastName =
+          value.length < 3 ? "Minimum 3 charechters is required" : "";
+        break;
+
+      // Email Address
+      case "email":
+        formErrors.email = emailRegax.test(value)
+          ? ""
+          : "Invalid Email Address !";
+        break;
+
+      // Password
+      case "password":
+        formErrors.password =
+          value.length < 8 ? "Minimum 8 charechters is required" : "";
+        break;
+
+      // Conf-password
+      case "conf-password":
+        const { password } = this.state;
+        formErrors.conf_password = value !== password ? "Dosn't matches !" : "";
+        break;
+
+        
+      default:
+        break;
     }
+
+    this.setState({ formErrors, [name]: value });
   };
 
   render() {
-    const style = { transition: " all .3s ease-in-out" }
+    const { formErrors } = this.state;
     return (
-      <Form className="register-form"
-       onSubmit={this.handleSubmit}>
+      <Form className="register-form" onSubmit={this.handelSubmit} noValidate>
         <div>
           <h2 className="text-center">Create Account</h2>
         </div>
         <div className="container">
-          <div className="row">
-            {/* First name */}
-            <FormGroup className="col-4 first-name">
-              <div className="form-group input-group w-50 ">
-                <div className="input-group-prepend">
-                  <span className="input-group-text">
-                    {" "}
-                    <FaUserAlt />
-                  </span>
-                </div>
-                <input
-                  validator="isName"
-                  required
-                  type="name"
-                  name="name"
-                  className="form-control"
-                  placeholder="First name"
-                />
+          {/* First name */}
+          <FormGroup className="first-name">
+            <div className="form-group input-group w-50">
+              <div className="input-group-prepend">
+                <span className="input-group-text">
+                  {" "}
+                  <FaUserAlt />
+                </span>
               </div>
-            </FormGroup>
+              <input
+                type="text"
+                name="firstName"
+                className="form-control"
+                placeholder="First name"
+                noValidate
+                onChange={this.handelChange}
+              />
+              {formErrors.firstName.length > 0 && (
+                <span className="alert alert-danger">
+                  {formErrors.firstName}
+                </span>
+              )}
+            </div>
+          </FormGroup>
 
-            {/* Last name */}
-            <FormGroup className="col-4 last-name">
-              <div className="form-group input-group w-75">
-                <div className="input-group-prepend">
-                  <span className="input-group-text">
-                    {" "}
-                    <FaUserAlt />
-                  </span>
-                </div>
-                <input
-                  validator="isName"
-                  required
-                  type="name"
-                  name="name"
-                  className="form-control"
-                  placeholder="Last name"
-                />
+          {/* Last name */}
+          <FormGroup className=" last-name">
+            <div className="form-group input-group w-50">
+              <div className="input-group-prepend">
+                <span className="input-group-text">
+                  {" "}
+                  <FaUserAlt />
+                </span>
               </div>
-            </FormGroup>
-            {/* Email Adress */}
-            <FormGroup className="col-8">
-              <div className="form-group input-group w-50">
-                <div className="input-group-prepend">
-                  <span className="input-group-text">
-                    {" "}
-                    <FaMailBulk />
-                  </span>
-                </div>
-                <input
-                  validator="isEmail"
-                  required
-                  type="email"
-                  name="email"
-                  className="form-control"
-                  placeholder="Email"
-                />
-              </div>
-            </FormGroup>
+              <input
+                type="text"
+                name="lastName"
+                className="form-control"
+                placeholder="Last name"
+                noValidate
+                onChange={this.handelChange}
+              />
+              {formErrors.lastName.length > 0 && (
+                <span className="alert alert-danger">
+                  {formErrors.lastName}
+                </span>
+              )}
+            </div>
+          </FormGroup>
 
-            {/* Password */}
-            <FormGroup className="col-8">
-              <div className="form-group input-group w-50">
-                <div className="input-group-prepend">
-                  <span className="input-group-text">
-                    {" "}
-                    <FaLock />
-                  </span>
-                </div>
-                <input
-                  validator="isPassword"
-                  required
-                  type="password"
-                  onChange={this.updatePassword}
-                  name="Password"
-                  className="form-control"
-                  maxLength="8"
-                  placeholder="Password"
-                />
+          {/* Email Adress */}
+          <FormGroup className="email">
+            <div className="form-group input-group w-50">
+              <div className="input-group-prepend">
+                <span className="input-group-text">
+                  {" "}
+                  <FaMailBulk />
+                </span>
               </div>
-            </FormGroup>
+              <input
+                type="email"
+                name="email"
+                className="form-control"
+                placeholder="Email"
+                noValidate
+                onChange={this.handelChange}
+              />
+              {formErrors.email.length > 0 && (
+                <span className="alert alert-danger">{formErrors.email}</span>
+              )}
+            </div>
+          </FormGroup>
 
-            {/* Confirm-Password */}
-            <FormGroup className="col-8">
-              <div
-                onKeyUp={this.checkMatch}
-                className="form-group input-group w-50"
+          {/* Password */}
+          <FormGroup className="">
+            <div className="form-group input-group w-50">
+              <div className="input-group-prepend">
+                <span className="input-group-text">
+                  {" "}
+                  <FaLock />
+                </span>
+              </div>
+              <input
+                type="password"
+                name="password"
+                className="form-control"
+                placeholder="Password"
+                noValidate
+                onChange={this.handelChange}
+              />
+              {formErrors.password.length > 0 && (
+                <span className="alert alert-danger">
+                  {formErrors.password}
+                </span>
+              )}
+            </div>
+          </FormGroup>
+
+          {/* Confirm-Password */}
+          <FormGroup className="">
+            <div className="form-group input-group w-50">
+              <div className="input-group-prepend">
+                <span className="input-group-text pass-not-Matched">
+                <FaLock />
+                </span>
+              </div>
+              <input
+                type="password"
+                name="conf-password"
+                className="form-control"
+                placeholder="Conf-password"
+                noValidate
+                onChange={this.handelChange}
+              />
+              {formErrors.conf_password.length > 0 && (
+                <span className="alert alert-danger">
+                  {formErrors.conf_password}
+                </span>
+              )}
+            </div>
+          </FormGroup>
+
+          {/* Upload Photo */}
+          <FormGroup className="">
+            <div className="custom-file w-50">
+              <input
+                type="file"
+                className="custom-file-input"
+                id="customFile"
+                noValidate
+              ></input>
+              <label className="custom-file-label" htmlFor="customFile">
+                Upload Photo
+              </label>
+            </div>
+          </FormGroup>
+
+          {/* Gander */}
+          <FormGroup className="">
+            <div className="center ">
+              <h6 className="gander">Gander :</h6>
+            </div>
+            <div className="custom-control custom-radio custom-control-inline">
+              <input
+                value="male"
+                type="radio"
+                id="customRadioInline1"
+                name="customRadioInline1"
+                className="custom-control-input"
+                onChange={this.radioChange}
+              ></input>
+              <label
+                className="custom-control-label"
+                htmlFor="customRadioInline1"
               >
-                <div className="input-group-prepend">
-                  {this.state.not_Match !== null && (
-                    <span
-                      className={
-                        this.state.not_Match
-                          ? "input-group-text pass-not-Matched"
-                          : "input-group-text pass-Matched"
-                      }
-                    >
-                      <FaFingerprint style={style} />
-                    </span>
-                  )}
-                </div>
-                <input
-                  validator="isPassword"
-                  required
-                  type="password"
-                  onChange={this.updateConfirmPassword}
-                  name="confirmPassword"
-                  className="form-control"
-                  maxLength="8"
-                  placeholder="Confirm Password"
-                />
-              </div>
-            </FormGroup>
+                male
+              </label>
+            </div>
+            <div className="custom-control custom-radio custom-control-inline">
+              <input
+                value="female"
+                type="radio"
+                id="customRadioInline2"
+                name="customRadioInline2"
+                className="custom-control-input"
+              ></input>
+              <label
+                className="custom-control-label"
+                htmlFor="customRadioInline2"
+              >
+                Female
+              </label>
+            </div>
+          </FormGroup>
 
-            {/* Gander */}
-            <FormGroup className="col-8">
-              <div className="center ">
-                <h6 className="gander">Gander :</h6>
-              </div>
-              <div className="custom-control custom-radio custom-control-inline">
-                <input
-                  required
-                  type="radio"
-                  id="customRadioInline1"
-                  name="customRadioInline1"
-                  className="custom-control-input"
-                ></input>
-                <label className="custom-control-label" htmlFor="customRadioInline1">
-                  Male
-                </label>
-              </div>
-              <div className="custom-control custom-radio custom-control-inline">
-                <input
-                  type="radio"
-                  id="customRadioInline2"
-                  name="customRadioInline1"
-                  className="custom-control-input"
-                ></input>
-                <label className="custom-control-label" htmlFor="customRadioInline2">
-                  Female
-                </label>
-              </div>
-            </FormGroup>
+          {/* BIRTHDATE */}
+          <FormGroup className="">
+            <div className="center ">
+              <h6 className="birth-data">Birth Data :</h6>
+            </div>
+            <div className="form-group position-relative">
+              <input label="Birth date" type="date" name="birthDate" />
+            </div>
+          </FormGroup>
 
-            {/* BIRTHDATE */}
-            <FormGroup className="col-8">
-              <div className="center ">
-                <h6 className="birth-data">Birth Data :</h6>
-              </div>
-              <div className='form-group position-relative'>
-                <input
-                  required
-                  label="Birth date"
-                  type="date"
-                  name="birthDate"
-                />
-              </div>
-            </FormGroup>
-
-            {/* Upload Photo */}
-            <FormGroup className="col-8">
-              <div className="custom-file w-50">
-                <input
-                  type="file"
-                  required
-                  className="custom-file-input"
-                  id="customFile"
-                ></input>
-                <label className="custom-file-label" htmlFor="customFile">
-                  Upload Photo
-                </label>
-              </div>
-            </FormGroup>
-
-            {/* Submit Section */}
-            <div className="submit-register col-5">
-              <button type="submit" className="btn btn-primary btn-block w-25">
-                Register
-              </button>
-              <div className="reg-option">
-                <span>Have an account? &nbsp;</span>
-                <Link to="/login">Login</Link>
-              </div>
+          {/* Submit Section */}
+          <div className="submit-register">
+            <button type="submit" className="btn btn-primary btn-block w-25">
+              Register
+            </button>
+            <div className="reg-option">
+              <span>Have an account? &nbsp;</span>
+              <Link to="/login">Login</Link>
             </div>
           </div>
         </div>
