@@ -44,6 +44,8 @@ class Layout extends Component {
           >
             <span className="navbar-toggler-icon"></span>
           </button>
+          
+
           <div className="collapse navbar-collapse" id="navbarsExample02">
             <ul className="navbar-nav ml-auto">
               <li className="nav-item active">
@@ -79,7 +81,7 @@ class Layout extends Component {
                 </button>
                 <div className="dropdown-container">
                   <Link to="/dashboard/Posts">Posts</Link>
-                  <Link to="/dashboard/Categories">Categories</Link>
+                  <Link to="/dashboard/users">Uesrs</Link>
                 </div>
               </div>
             </ul>
