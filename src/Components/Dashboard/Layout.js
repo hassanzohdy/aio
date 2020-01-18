@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { FaSignOutAlt } from "react-icons/fa";
 import Toogle from './Header/Toggle';
+import {Dashboard, Users} from './Sidebar/sidebar';
 import "./Layout.scss";
 class Layout extends Component {
   componentDidMount() {
@@ -67,7 +68,7 @@ class Layout extends Component {
           <div id="sidebar-wrapper">
             <ul className="sidebar-nav">
               <button className="dropdown-btn admin-dash">
-                <Link to="/dashboard">Dashboard</Link>
+                  <Dashboard />
                 <i className="fa fa-caret-down"></i>
               </button>
               <button className="dropdown-btn">
@@ -81,7 +82,7 @@ class Layout extends Component {
                 </button>
                 <div className="dropdown-container">
                   <Link to="/dashboard/Posts">Posts</Link>
-                  <Link to="/dashboard/users">Uesrs</Link>
+                  <Users />
                 </div>
               </div>
             </ul>
