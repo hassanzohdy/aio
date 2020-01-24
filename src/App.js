@@ -12,11 +12,9 @@ function App() {
       <div className="App">
         {/* Login Page with route /login that displays the login form. */}
         <Route path="/login"  component={Login} />
-        <Switch>
         <Route path="/dashboard" exact  component={Dashboard} />
         <Route path="/dashboard/posts"  component={Posts} />
         <Route path="/dashboard/users"  component={Users} />
-        </Switch>
       </div>
     </BrowserRouter>
   );
