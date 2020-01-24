@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { FaSignOutAlt } from "react-icons/fa";
-import Toogle from './Header/Toggle';
+import Toogle from './Header/Header';
 import {Dashboard, Users} from './Sidebar/sidebar';
 import "./Layout.scss";
 class Layout extends Component {

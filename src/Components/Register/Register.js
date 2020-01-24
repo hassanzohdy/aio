@@ -43,9 +43,9 @@ class Register extends Component {
     };
   }
 
-  radioChange = (e) =>{
+  radioChange = (e) => {
     this.setState({
-        gender: e.target.value
+      gender: e.target.value
     })
   }
 
@@ -97,7 +97,7 @@ class Register extends Component {
         formErrors.conf_password = value !== password ? "Dosn't matches !" : "";
         break;
 
-        
+
       default:
         break;
     }
@@ -216,7 +216,7 @@ class Register extends Component {
             <div className="form-group input-group w-50">
               <div className="input-group-prepend">
                 <span className="input-group-text pass-not-Matched">
-                <FaLock />
+                  <FaLock />
                 </span>
               </div>
               <input

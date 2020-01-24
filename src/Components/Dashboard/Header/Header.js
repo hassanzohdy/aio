@@ -1,23 +1,26 @@
 import React, { Component } from 'react';
 import $ from "jquery";
 
-// JQuery here...
-$(function() {
-  $("#menu-toggle").click(function(e) {
+// JQuery here
+// Function for toggle...
+$(function () {
+  $("#menu-toggle").on("click", function (e) {
     e.preventDefault();
+    console.log('toggling');
     $("#wrapper").toggleClass("toggled");
   });
 
-  $(window).resize(function(e) {
+  $(window).resize(function (e) {
     if ($(window).width() <= 768) {
-      $("#wrapper").removeClass("toggled");
+      $("#wrapper").toggleClass("toggled");
     } else {
-      $("#wrapper").addClass("toggled");
+      $("#wrapper").toggleClass("toggled");
     }
   });
 });
 
 
+// Toggle button
 class Toggle extends Component {
   render() {
     return (
