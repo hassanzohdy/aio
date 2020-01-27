@@ -1,7 +1,7 @@
-import React from 'react';
-import Layout from '../Layout';
+import React from "react";
+import Layout from "../Layout";
 import "bootstrap/dist/css/bootstrap.min.css";
-const Posts = () => {
+const Posts = props => {
   return (
     <Layout>
       <div id="page-content-wrapper">
@@ -10,12 +10,11 @@ const Posts = () => {
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        </p>
-     
+          </p>
         </div>
       </div>
     </Layout>
-  )
-}
+  );
+};
 
 export default Posts;
