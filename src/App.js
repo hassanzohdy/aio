@@ -21,7 +21,9 @@ function App() {
             <Route path="/dashboard/posts">
               <Posts />
             </Route>
-            <Route path="/dashboard/users" component={Users} />
+            <Route path="/dashboard/users">
+              <Users />
+            </Route>
           </Switch>
         </Layout>
       </div>
