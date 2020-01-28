@@ -12,7 +12,7 @@ function App() {
     <BrowserRouter>
       <div className="App">
         <Layout>
-          {/* Login Page with route /login that displays the login form. */}
+          {/* Login Page with route login that displays the login form. */}
           <Route path="/login" component={Login} />
           <Switch>
             <Route path="/dashboard" exact>
